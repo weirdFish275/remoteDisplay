@@ -30,7 +30,8 @@ class PubSub(object):
     def __on_message(self, client, userdata, msg):
         self.logger.info("{0}, {1} - {2}".format(userdata, msg.topic, msg.payload))
         msg_json = json.loads(msg.payload)
-        print(msg_json['message'])
+        if msg_json['message'] == "textScroll":
+            os.system(f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 {msg_json['content']}')
         #os.system('sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/minimal-example --led-cols=64 --led-rows=64 --led-gpio-mapping=regular-pi1')
 
     def __on_log(self, client, userdata, level, buf):
