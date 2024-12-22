@@ -5,7 +5,8 @@ import ssl
 from time import sleep
 from random import uniform
 import json
-from subprocess import call
+import subprocess
+import signal
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -31,8 +32,9 @@ class PubSub(object):
         self.logger.info("{0}, {1} - {2}".format(userdata, msg.topic, msg.payload))
         msg_json = json.loads(msg.payload)
         if msg_json['message'] == "textScroll":
-            os.system(f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]}')
-        
+            os.kill(pid, signal.SIGINT)
+            display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]}'])
+            pid = display_process.pid
         #os.system('sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/minimal-example --led-cols=64 --led-rows=64 --led-gpio-mapping=regular-pi1')
 
     def __on_log(self, client, userdata, level, buf):
