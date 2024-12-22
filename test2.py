@@ -35,7 +35,7 @@ class PubSub(object):
         msg_json = json.loads(msg.payload)
         if msg_json['message'] == "textScroll":
             try:
-                kill = subprocess.Popen([f'sudo kill -9 {pid}'])
+                kill = subprocess.Popen([f'sudo killall scrolling-text-example'])
                 display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]}'], shell=True)
             except UnboundLocalError:
                 print("UnboundLocal")
