@@ -36,6 +36,7 @@ class PubSub(object):
         if msg_json['message'] == "textScroll":
             try:
                 display_process.send_signal(signal.CTRL_C_EVENT)
+                sleep(0.5)
             except UnboundLocalError:
                 pass
             display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]}'], shell=True)
