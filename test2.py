@@ -70,7 +70,7 @@ class PubSub(object):
         while True:
             sleep(2)
             if self.connect == True:
-                self.mqttc.publish(self.topic, json.dumps({"message": "Hello COMP680"}), qos=1)
+                #self.mqttc.publish(self.topic, json.dumps({"message": "Hello COMP680"}), qos=1)
             else:
                 self.logger.debug("Attempting to connect.")
 
