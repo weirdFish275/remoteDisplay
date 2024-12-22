@@ -52,6 +52,15 @@ class PubSub(object):
             subprocess.Popen([f'sudo killall clock'], shell=True)
             sleep(0.5)
             display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/clock -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1'], shell=True)
+        elif msg_json['mode'] == "img":
+            subprocess.Popen([f'sudo killall scrolling-text-example'], shell=True)
+            subprocess.Popen([f'sudo killall text-example'], shell=True)
+            subprocess.Popen([f'sudo killall clock'], shell=True)
+            subprocess.Popen([f'sudo killall led-image-viewer'], shell=True)
+            sleep(0.5)
+            subprocess.Popen([f' sudo rm image.jpg'], shell=True)
+            subprocess.Popen([f'wget {msg["url"]} -O image.jpg'], shell=True)
+            display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/utils/led-image-viewer --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 image.jpg -C'], shell=True)
 
     def __on_log(self, client, userdata, level, buf):
         self.logger.debug("{0}, {1}, {2}, {3}".format(client, userdata, level, buf))
