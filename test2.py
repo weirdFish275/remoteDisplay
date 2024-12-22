@@ -36,9 +36,10 @@ class PubSub(object):
         if msg_json['message'] == "textScroll":
             try:
                 kill = subprocess.Popen([f'sudo kill -9 {pid}'])
-                display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 --led-daemon {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]}'], shell=True)
+                display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]}'], shell=True)
             except UnboundLocalError:
-                display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 --led-daemon {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]}'], shell=True)
+                print("UnboundLocal")
+                display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]}'], shell=True)
 
             pid = display_process.pid
         #os.system('sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/minimal-example --led-cols=64 --led-rows=64 --led-gpio-mapping=regular-pi1')
