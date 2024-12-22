@@ -9,7 +9,6 @@ import subprocess
 import signal
 import logging
 logging.basicConfig(level=logging.INFO)
-global pid
 global display_process
 
 # Refactored original source - https://github.com/mariocannistra/python-paho-mqtt-for-aws-iot
@@ -41,6 +40,7 @@ class PubSub(object):
                 print("UnboundLocal")
                 display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]}'], shell=True)
 
+            global pid 
             pid = display_process.pid
         #os.system('sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/minimal-example --led-cols=64 --led-rows=64 --led-gpio-mapping=regular-pi1')
 
