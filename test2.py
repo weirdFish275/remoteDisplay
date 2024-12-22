@@ -33,11 +33,25 @@ class PubSub(object):
     def __on_message(self, client, userdata, msg):
         self.logger.info("{0}, {1} - {2}".format(userdata, msg.topic, msg.payload))
         msg_json = json.loads(msg.payload)
-        if msg_json['message'] == "textScroll":
+        if msg_json['mode'] == "textScroll":
             kill = subprocess.Popen([f'sudo killall scrolling-text-example'], shell=True)
+            subprocess.Popen([f'sudo killall text-example'], shell=True)
+            subprocess.Popen([f'sudo killall clock'], shell=True)
             sleep(0.5)
             display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]} -C {msg_json["textColour"][0]},{msg_json["textColour"][1]},{msg_json["textColour"][2]} -B {msg_json["bgColour"][0]},{msg_json["bgColour"][1]},{msg_json["bgColour"][2]}'], shell=True)
         #os.system('sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/minimal-example --led-cols=64 --led-rows=64 --led-gpio-mapping=regular-pi1')
+        elif msg_json['mode'] == "text":
+            subprocess.Popen([f'sudo killall scrolling-text-example'], shell=True)
+            subprocess.Popen([f'sudo killall text-example'], shell=True)
+            subprocess.Popen([f'sudo killall clock'], shell=True)
+            sleep(0.5)
+            display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]} -C {msg_json["textColour"][0]},{msg_json["textColour"][1]},{msg_json["textColour"][2]} -B {msg_json["bgColour"][0]},{msg_json["bgColour"][1]},{msg_json["bgColour"][2]}'], shell=True)
+        elif msg_json['mode'] == "clock":
+            subprocess.Popen([f'sudo killall scrolling-text-example'], shell=True)
+            subprocess.Popen([f'sudo killall text-example'], shell=True)
+            subprocess.Popen([f'sudo killall clock'], shell=True)
+            sleep(0.5)
+            display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/clock -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 -y {msg_json["y"]} -x {msg_json["x"]} -C {msg_json["textColour"][0]},{msg_json["textColour"][1]},{msg_json["textColour"][2]} -B {msg_json["bgColour"][0]},{msg_json["bgColour"][1]},{msg_json["bgColour"][2]}'], shell=True)
 
     def __on_log(self, client, userdata, level, buf):
         self.logger.debug("{0}, {1}, {2}, {3}".format(client, userdata, level, buf))
