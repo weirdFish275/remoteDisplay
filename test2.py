@@ -10,6 +10,7 @@ import signal
 import logging
 logging.basicConfig(level=logging.INFO)
 global display_process
+pid = None
 
 # Refactored original source - https://github.com/mariocannistra/python-paho-mqtt-for-aws-iot
 
@@ -20,7 +21,6 @@ class PubSub(object):
         self.listener = listener
         self.topic = topic
         self.logger = logging.getLogger(repr(self))
-        global pid
 
     def __on_connect(self, client, userdata, flags, rc):
         self.connect = True
