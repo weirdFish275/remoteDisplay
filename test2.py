@@ -20,6 +20,7 @@ class PubSub(object):
         self.listener = listener
         self.topic = topic
         self.logger = logging.getLogger(repr(self))
+        global pid
 
     def __on_connect(self, client, userdata, flags, rc):
         self.connect = True
@@ -39,8 +40,6 @@ class PubSub(object):
             except UnboundLocalError:
                 print("UnboundLocal")
                 display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/scrolling-text-example -f ../fonts/ibmfonts/bdf/ic8x16u.bdf --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 {msg_json["content"]} -y {msg_json["y"]} -x {msg_json["x"]}'], shell=True)
-
-            global pid 
             pid = display_process.pid
         #os.system('sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/minimal-example --led-cols=64 --led-rows=64 --led-gpio-mapping=regular-pi1')
 
