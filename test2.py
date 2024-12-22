@@ -59,7 +59,8 @@ class PubSub(object):
             subprocess.Popen([f'sudo killall led-image-viewer'], shell=True)
             sleep(0.5)
             subprocess.Popen([f'sudo rm image.jpg'], shell=True)
-            subprocess.Popen([f"wget \'{msg_json['url']}\' -O image.jpg"], shell=True)
+            downloader = subprocess.Popen([f"wget \'{msg_json['url']}\' -O image.jpg"], shell=True)
+            downloader.wait()
             display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/utils/led-image-viewer --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 /home/panel/code/image.jpg -C'], shell=True)
 
     def __on_log(self, client, userdata, level, buf):
