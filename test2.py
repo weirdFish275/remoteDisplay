@@ -71,6 +71,7 @@ class PubSub(object):
             sleep(2)
             if self.connect == True:
                 #self.mqttc.publish(self.topic, json.dumps({"message": "Hello COMP680"}), qos=1)
+                pass
             else:
                 self.logger.debug("Attempting to connect.")
 
