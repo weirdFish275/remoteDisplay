@@ -29,8 +29,9 @@ class PubSub(object):
 
     def __on_message(self, client, userdata, msg):
         self.logger.info("{0}, {1} - {2}".format(userdata, msg.topic, msg.payload))
-        if msg.payload == b"ON":
-                os.system('sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/minimal-example --led-cols=64 --led-rows=64 --led-gpio-mapping=regular-pi1')
+        msg_json = json.loads(msg.payload)
+        print(msg_json)
+        #os.system('sudo /home/inigo/panel/rpi-rgb-led-matrix/examples-api-use/minimal-example --led-cols=64 --led-rows=64 --led-gpio-mapping=regular-pi1')
 
     def __on_log(self, client, userdata, level, buf):
         self.logger.debug("{0}, {1}, {2}, {3}".format(client, userdata, level, buf))
