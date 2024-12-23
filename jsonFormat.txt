@@ -1,0 +1,9 @@
+{
+  "mode": "textScroll",
+  "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3kVlmFR31McNlSQtjvoaR-cvKt02EevVcXA&s",
+"content": "Hello there",
+"y":0,
+"x":64,
+"textColour":[100,100,100],
+"bgColour":[0,0,0],
+}
