@@ -95,6 +95,7 @@ class PubSub(object):
 
         if result_of_connection == 0:
             self.connect = True
+        self.mqttc.publish("commands", "Booted")
 
         return self
 
@@ -110,5 +111,5 @@ class PubSub(object):
                 self.logger.debug("Attempting to connect.")
 
 if __name__ == '__main__':
-    
-    PubSub(listener = True, topic = "chat-evets").bootstrap_mqtt().start()
+
+    PubSub(listener = True, topic = "commands").bootstrap_mqtt().start()
