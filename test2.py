@@ -92,9 +92,12 @@ class PubSub(object):
             cert_reqs=ssl.CERT_REQUIRED, 
             tls_version=ssl.PROTOCOL_TLSv1_2, 
             ciphers=None)
-
-        result_of_connection = self.mqttc.connect(awshost, awsport, keepalive=120)
-
+        while True:
+            try:
+                result_of_connection = self.mqttc.connect(awshost, awsport, keepalive=120)
+                break
+            except:
+                pass
         if result_of_connection == 0:
             self.connect = True
         self.mqttc.publish("commands", "Booted")
