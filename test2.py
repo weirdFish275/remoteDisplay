@@ -66,6 +66,8 @@ class PubSub(object):
             downloader = subprocess.Popen([f"wget \'{msg_json['url']}\' -O image.jpg"], shell=True)
             downloader.wait()
             display_process = subprocess.Popen([f'sudo /home/inigo/panel/rpi-rgb-led-matrix/utils/led-image-viewer --led-rows=64 --led-cols=64 --led-gpio-mapping=regular-pi1 /home/inigo/panel/code/image.jpg -C'], shell=True)
+        elif msg_json['mode'] == "quit":
+            os.exit(0)
 
     def __on_log(self, client, userdata, level, buf):
         self.logger.debug("{0}, {1}, {2}, {3}".format(client, userdata, level, buf))
@@ -96,6 +98,7 @@ class PubSub(object):
         if result_of_connection == 0:
             self.connect = True
         self.mqttc.publish("commands", "Booted")
+        print("Display Active")
 
         return self
 
