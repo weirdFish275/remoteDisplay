@@ -92,7 +92,7 @@ class PubSub(object):
             cert_reqs=ssl.CERT_REQUIRED, 
             tls_version=ssl.PROTOCOL_TLSv1_2, 
             ciphers=None)
-        sleep(120)
+
         result_of_connection = self.mqttc.connect(awshost, awsport, keepalive=120)
 
         if result_of_connection == 0:
