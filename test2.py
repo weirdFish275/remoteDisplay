@@ -72,7 +72,7 @@ class PubSub(object):
             subprocess.Popen([f'sudo killall text-example'], shell=True)
             subprocess.Popen([f'sudo killall clock'], shell=True)
             subprocess.Popen([f'sudo killall led-image-viewer'], shell=True)
-            sleep(5)
+            sleep(0.5)
             sys.exit(0)
 
     def __on_log(self, client, userdata, level, buf):
