@@ -101,9 +101,11 @@ class PubSub(object):
         while True:
             try:
                 result_of_connection = self.mqttc.connect(awshost, awsport, keepalive=120)
+                break
             except:
                 sleep(120)
                 result_of_connection = self.mqttc.connect(awshost, awsport, keepalive=120)
+                break
             
         if result_of_connection == 0:
             self.connect = True
